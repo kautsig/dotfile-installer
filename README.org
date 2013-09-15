@@ -1,0 +1,47 @@
+* Motivation
+
+I switched to managing my dotfiles in a git repository some time
+ago. But creating a symlink from my home directory to my repository
+caused problems, because I couldn't switch branches without having the
+configuration immediately installed.
+
+See my blog post about it:
+http://kautsig.org/blog/archives/2013-06-02/symlinking-dotfiles.html
+
+* Features
+
+Assume you have a dotfile repository and you want to link them in your home dir.
+After calling /./install.sh -l/ (l for link) your home dir looks like this:
+
+: lrwxrwxrwx   1 cr   cr      45 Sep 15 18:15 .conkerorrc -> /home/cr/projects/config/dotfiles/.conkerorrc
+: lrwxrwxrwx   1 cr   cr      42 Sep 15 18:15 .conkyrc -> /home/cr/projects/config/dotfiles/.conkyrc
+: lrwxrwxrwx   1 cr   cr      44 Sep 15 18:15 .gitconfig -> /home/cr/projects/config/dotfiles/.gitconfig
+: lrwxrwxrwx   1 cr   cr      45 Sep 15 18:15 .procmailrc -> /home/cr/projects/config/dotfiles/.procmailrc
+: lrwxrwxrwx   1 cr   cr      44 Sep 15 18:15 .signature -> /home/cr/projects/config/dotfiles/.signature
+
+After calling /./install.sh -u/ (u for unlink) your home dir looks like this:
+
+: -rw-r--r--   1 cr   cr     2106 Sep 15 18:24 .conkerorrc
+: -rw-r--r--   1 cr   cr      697 Sep 15 18:24 .conkyrc
+: -rw-r--r--   1 cr   cr      827 Sep 15 18:24 .gitconfig
+: -rw-r--r--   1 cr   cr      876 Sep 15 18:24 .procmailrc
+: -rw-r--r--   1 cr   cr       53 Sep 15 18:24 .signature
+
+For not accidentially overwriting files in the home directory, a hash
+is compared between files in place and files symlinked. If you want to
+replace your changes call the install tool with the "-f" command line
+switch.
+
+* Installation
+
+Rename install.sh to fit your needs and place it on your path. The
+script expects a dotfiles directory from where it is called and
+installs the files to your home dir.
+
+* "Use at own risk" Disclaimer
+
+The script works fine for me, but if something goes wrong, you can
+seriously ruin your setup. Please study the script carefully, make
+sure you understand what it does and that it does what you
+expect. Create a backup first. Do not blame me if something goes
+wrong.
